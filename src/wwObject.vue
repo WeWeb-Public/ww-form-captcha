@@ -7,7 +7,6 @@
     </div>
 </template>
 
-
 <script>
 /* wwManager:start */
 wwLib.wwPopups.addStory('WWFORM_CAPTCHA_OPTIONS', {
@@ -119,13 +118,14 @@ export default {
             }
             wwLib.wwObjectHover.removeLock();
         }
+        /* wwManager:end */
     },
     created() {
         const sc = document.createElement("script");
-        sc.setAttribute("src", "https://www.google.com/recaptcha/api.js");
-        sc.setAttribute("type", "text/javascript");
-        sc.setAttribute("async", true);
-        sc.setAttribute("defer", true);
+        sc.setAttribute('src', 'https://www.google.com/recaptcha/api.js');
+        sc.setAttribute('type', 'text/javascript');
+        sc.setAttribute('async', true);
+        sc.setAttribute('defer', true);
         document.head.appendChild(sc);
         this.wwObject.content.data = this.wwObject.content.data || {}
         this.wwObject.content.data.config = this.wwObject.content.data.config || {}
