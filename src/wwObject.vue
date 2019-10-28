@@ -3,7 +3,7 @@
         <!-- wwManager:start -->
         <wwOrangeButton class="ww-orange-button" v-if="wwObjectCtrl.getSectionCtrl().getEditMode() == 'CONTENT'"></wwOrangeButton>
         <!-- wwManager:end -->
-        <div class="g-recaptcha" :data-sitekey="wwObject.content.data.config.apiKey"></div>
+        <div v-if="!reload" class="g-recaptcha" :data-sitekey="wwObject.content.data.config.apiKey"></div>
     </div>
 </template>
 
@@ -81,7 +81,8 @@ export default {
     },
     data() {
         return {
-            wwLang: wwLib.wwLang
+            wwLang: wwLib.wwLang,
+            reload: false,
         }
     },
     computed: {
@@ -90,6 +91,18 @@ export default {
         }
     },
     methods: {
+        init() {
+            const sc = document.createElement("script");
+            sc.setAttribute('src', 'https://www.google.com/recaptcha/api.js');
+            sc.setAttribute('type', 'text/javascript');
+            sc.setAttribute('async', true);
+            sc.setAttribute('defer', true);
+            document.head.appendChild(sc);
+            this.wwObject.content.data = this.wwObject.content.data || {}
+            this.wwObject.content.data.config = this.wwObject.content.data.config || {}
+
+            this.wwObjectCtrl.update(this.wwObject)
+        },
         /* wwManager:start */
         async options() {
             let copyObj = JSON.parse(JSON.stringify(this.wwObject)) // to clean
@@ -110,8 +123,20 @@ export default {
                 if (typeof (result) != 'undefined') {
                     if (typeof (result.apiKey) != 'undefined') {
                         this.wwObject.content.data.config.apiKey = result.apiKey;
+                        this.wwObjectCtrl.update(this.wwObject);
+
+                        this.reload = true;
+
+                        setTimeout(() => {
+                            this.reload = false;
+                            this.$forceUpdate();
+
+                            setTimeout(() => {
+                                this.init();
+                                this.$forceUpdate();
+                            }, 100);
+                        }, 100);
                     }
-                    this.wwObjectCtrl.update(this.wwObject);
                 }
             } catch (err) {
                 wwLib.wwLog.error('ERROR', err)
@@ -121,16 +146,7 @@ export default {
         /* wwManager:end */
     },
     mounted() {
-        const sc = document.createElement("script");
-        sc.setAttribute('src', 'https://www.google.com/recaptcha/api.js');
-        sc.setAttribute('type', 'text/javascript');
-        sc.setAttribute('async', true);
-        sc.setAttribute('defer', true);
-        document.head.appendChild(sc);
-        this.wwObject.content.data = this.wwObject.content.data || {}
-        this.wwObject.content.data.config = this.wwObject.content.data.config || {}
-
-        this.wwObjectCtrl.update(this.wwObject)
+        this.init();
         this.$emit('ww-loaded', this);
     }
 };
