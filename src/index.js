@@ -9,6 +9,13 @@ const addComponent = function () {
         wwLib.wwObject.register({
             /* wwManager:start */
             cmsOptions: {
+                displayName: {
+                    en: 'Google Captcha',
+                    fr: 'Captcha Google'
+                },
+                wwObjectHover: {
+                    pointerEvents: true
+                },
                 wwObjectMenu: {
                     items: [
                         {

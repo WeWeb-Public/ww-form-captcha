@@ -59,7 +59,7 @@ wwLib.wwPopups.addStory('WWFORM_CAPTCHA_CONFIG', {
                 type: 'text',
                 key: 'apiKey',
                 valueData: 'wwObject.content.data.config.apiKey',
-            },
+            }
         ]
     },
     buttons: {
@@ -120,7 +120,7 @@ export default {
         }
         /* wwManager:end */
     },
-    created() {
+    mounted() {
         const sc = document.createElement("script");
         sc.setAttribute('src', 'https://www.google.com/recaptcha/api.js');
         sc.setAttribute('type', 'text/javascript');
