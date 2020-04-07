@@ -1,0 +1,39 @@
+{
+	"componentPath": "./src/wwObject.vue",
+	"content": {
+		"type": "ww-form-captcha",
+		"data": {
+			"config": {
+				"apiKey": "key"
+			}
+		}
+	},
+	"upsales": {
+		"wwAnalytics": {
+			"click": true
+		}
+	},
+	"cmsOptions": {
+		"displayName": {
+			"en": "Google Captcha",
+			"fr": "Captcha Google"
+		},
+		"wwObjectHover": {
+			"pointerEvents": true
+		},
+		"wwObjectMenu": {
+			"items": [
+				{
+					"name": "OPTIONS",
+					"text": {
+						"en": "Options...",
+						"fr": "Options..."
+					},
+					"main": true,
+					"icon": "wwi wwi-edit-other",
+					"action": "options"
+				}
+			]
+		}
+	}
+}
