@@ -137,6 +137,7 @@ export default {
                             }, 100);
                         }, 100);
                     }
+                    this.wwObjectCtrl.globalEdit(result);
                 }
             } catch (err) {
                 wwLib.wwLog.error('ERROR', err)
